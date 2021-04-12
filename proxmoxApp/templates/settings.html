@@ -1,0 +1,70 @@
+<!--
+ToDo
+
+Add a test connection button
+Only make it shown once global settings are set
+
+check for https:// or any slashes and remove them before saving to file
+-->
+
+{% include 'navbar.html' %}
+<script src="https://kit.fontawesome.com/5a3d5d0d28.js" crossorigin="anonymous"></script>
+<script>
+</script>
+<div class="container">
+    <div class="row justify-content-center">
+        <div clas="col">
+            <form action="/settings" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col justify-content-center">
+                                <label>Master Password <a tabindex="0" role="button" data-toggle="popover" data-trigger="focus" data-placement="right" title="What's Master Password?" data-content="This password is used to encrypt your settings for this program. Since the user name and password
+                                   	is saved inorder to make requests it is best pratice to keep them encrypted. If you forget your master password you will need to delete the encrypted settings and re-input all your information."><i class="fas fa-question-circle"></i></a></label>
+                                <input type="password" class="form-control" placeholder="Pass" name="masterPass">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Username</label>
+                                        <input type="text" class="form-control" placeholder="Username" name="username">
+                                    </div>
+                                    <div class="col">
+                                        <label for="inputPassword4">Password</label>
+                                        <input type="password" class="form-control" name="password" placeholder="Password">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Proxmox URL</label>
+                                        <input type="text" class="form-control" id="URL" placeholder="https://website.com:8006/" name="URL">
+                                    </div>
+                                    <div class="col">
+                                        <label>Realm</label>
+                                        <input type="text" class="form-control" id="URL" placeholder="pve" name="realm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <p><button type="submit" class="btn btn-primary">Save</button></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+ {% include 'footer.html' %}
+                        
+
+            </form>
+        </div>
+    </div>
+</div>

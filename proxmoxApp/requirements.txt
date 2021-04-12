@@ -1,0 +1,4 @@
+Flask==1.1.2
+requests==2.23.0
+flaskwebgui==0.1.13
+pyAesCrypt==5.0.0

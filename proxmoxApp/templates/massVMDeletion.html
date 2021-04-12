@@ -1,0 +1,166 @@
+
+{% include 'navbar.html' %}
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/5a3d5d0d28.js">
+</script>
+<section class="section hero-section" data-eltype="frontpagesection" id="hero">
+    <div class="container wide-container section-inner">
+        <div class="section-body">
+            <div class="fresh-ideas-content">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        Mass User Deletion
+                    </h2>
+                    {% if status == "success" %}
+                    <div class="alert alert-success">
+                        <strong>
+                            Yay!
+                        </strong>
+                        VM's have been Deleted!!
+                    </div>
+                    {% endif %}
+                    {% if status == "badvmToDelete" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need a starting vmid!
+                    </div>
+                    {% endif %}
+                    {% if status == "badnumberOfvms" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to delete at least 1 account!
+                    </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        </div>
+        <p>
+            ​
+        </p>
+        <div class="row justify-content-md-center">
+            <div class="row justify-content-center">
+                <div clas="col">
+                    <form id="FormToSubmit" action="/massVMDeletion" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <label>
+                                            Starting vmid
+                                            <a data-html="true" data-content="This is the first vmid in the list of vm's you want to delete. For example if you want to delete vmid 100 through 110 this should be 100 and set the number of VM's to 10" data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's Starting vmid?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="vmToDelete" name="vmToDelete" placeholder="100" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('vmToDelete').value = '{{info['vmToDelete']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>
+                                            Number Of VM's
+                                        </label>
+                                        <input class="form-control" id="numberOfvms" name="numberOfvms" placeholder="0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('numberOfvms').value = '{{info['numberOfvms']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>
+                                            Purge
+                                        </label>
+                                        <input type="checkbox" class="form-check-label" name='purge'>
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('purge').value = '{{info['purge']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <p>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="setList();" data-target="#DeleteModal">
+                                                Delete
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+ {% include 'footer.html' %}
+                        
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure? This will delete all the following vmid's:
+                <samp>
+                    <p id="AccountList"></p>
+                </samp>
+                <script type="text/javascript">
+                function setList() {
+                    var text = ""
+                    for (i = 0; i < Number(document.getElementById("numberOfvms").value); i++) {
+                        text += Number(document.getElementById("vmToDelete").value) + i + "<br>";
+                    }
+                    document.getElementById("AccountList").innerHTML = text;
+                }
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" id="submitBtn" type="submit">
+                    Delete
+                </button>
+                <script>
+                $("#submitBtn").on('click', function() {
+                    $("#FormToSubmit").submit();
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+{% include 'navbar.html' %}
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/5a3d5d0d28.js">
+</script>
+<section class="section hero-section" data-eltype="frontpagesection" id="hero">
+    <div class="container wide-container section-inner">
+        <div class="section-body">
+            <div class="fresh-ideas-content">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        Mass VM Cloning
+                    </h2>
+                    {% if status == "success" %}
+                    <div class="alert alert-success">
+                        <strong>
+                            Yay!
+                        </strong>
+                        VM has been cloned!!
+                    </div>
+                    {% endif %}
+                    {% if status == "badnewid" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        New vmid is Either in Use or You Did Not Fill it in!
+                    </div>
+                    {% endif %}
+                    {% if status == "badnumberOfvms" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to tell me how many vm's you want!
+                    </div>
+                    {% endif %}
+                    {% if status == "badNewVMName" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to name your new vm's!
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <p>
+            ​
+        </p>
+        <div class="row justify-content-md-center">
+            <div class="row justify-content-center">
+                <div clas="col">
+                    <form action="/massVMClone" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <label>
+                                            Select Template
+                                            <a data-content="This will be the template that the clones will be created from" data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's a template?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <select class="form-control" id="template" name="template">
+                                            {% for i in range(templateDictLength) %}
+                                            <option>{{ templateDict['data'][i]['name'] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label for="numberOfvms">
+                                            Number of VM's
+                                        </label>
+                                        <input class="form-control" id="numberOfvms" name="numberOfvms" placeholder="0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('numberOfvms').value = '{{info['numberOfvms']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                         <label>
+                                            VM Base Name
+                                            <a data-content="This will be the base name for the VM's. For example if you set this to VM- and are making 10 vm's the names will be VM-1, VM-2, etc..." data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's vmid starting point?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="newName" name="newName" placeholder="VM-" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('newName').value = '{{info['newName']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    <div class="col" >
+                                        <label>
+                                            VMID Starting point
+                                            <a data-content="This will be the starting vmid for the clones. For example if you start at 400 the vmid will be 400 the following vmids will be 400 + number of clone **NOTE** you can not use vmid's that are already in use." data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's vmid starting point?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="newid" name="newid" placeholder="0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('newid').value = '{{info['newid']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <p>
+                                            <button class="btn btn-primary" id="submitBtn" type="submit">
+                                                Clone
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      {% include 'footer.html' %}
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>

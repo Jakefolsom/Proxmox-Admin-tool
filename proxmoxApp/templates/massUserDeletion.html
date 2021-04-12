@@ -1,0 +1,173 @@
+
+{% include 'navbar.html' %}
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/5a3d5d0d28.js">
+</script>
+<section class="section hero-section" data-eltype="frontpagesection" id="hero">
+    <div class="container wide-container section-inner">
+        <div class="section-body">
+            <div class="fresh-ideas-content">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        Mass User Deletion
+                    </h2>
+                    {% if status == "success" %}
+                    <div class="alert alert-success">
+                        <strong>
+                            Yay!
+                        </strong>
+                        Accounts have been Deleted!!
+                    </div>
+                    {% endif %}
+                    {% if status == "emptyBaseUserName" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need a base username!
+                    </div>
+                    {% endif %}
+                    {% if status == "badNumberOfAccounts" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to create at least 1 account!
+                    </div>
+                    {% endif %}
+                    {% if status == "badRealm" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You forgot the realm!
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <p>
+            ​
+        </p>
+        <div class="row justify-content-md-center">
+            <div class="row justify-content-center">
+                <div clas="col">
+                    <form id="FormToSubmit" action="/massUserDeletion" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <label>
+                                            Base Username
+                                            <a data-html="true" data-content="This is the base name for the account. For example if you have an account called <b>Test1</b> the base username would be <b>Test</b>" data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's base Username?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="baseUsername" name="baseUsername" placeholder="userAccount" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('baseUsername').value = '{{info['baseUsername']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>
+                                            Number Of Accounts
+                                        </label>
+                                        <input class="form-control" id="numberofAccounts" name="numberOfAccounts" placeholder="0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('numberOfAccounts').value = '{{info['numberOfAccounts']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>
+                                            Realm
+                                        </label>
+                                        <input class="form-control" id="realm" name="realm" placeholder="pve" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('realm').value = '{{info['realm']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <p>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" onclick="setList();" data-target="#DeleteModal">
+                                                Delete
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+ {% include 'footer.html' %}
+                        
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
+<div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure? This will delete all the following accounts:
+                <samp>
+                    <p id="AccountList"></p>
+                </samp>
+                <script type="text/javascript">
+                function setList() {
+                    var text = ""
+                    for (i = 1; i < Number(document.getElementById("numberofAccounts").value) + 1; i++) {
+                        text += document.getElementById("baseUsername").value + i + "<br>";
+                    }
+                    document.getElementById("AccountList").innerHTML = text;
+                }
+                </script>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" id="submitBtn" type="submit">
+                    Delete
+                </button>
+                <script>
+                $("#submitBtn").on('click', function() {
+                    $("#FormToSubmit").submit();
+                });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

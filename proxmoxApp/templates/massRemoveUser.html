@@ -1,0 +1,203 @@
+{% include 'navbar.html' %}
+
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/5a3d5d0d28.js">
+</script>
+<section class="section hero-section" data-eltype="frontpagesection" id="hero">
+    <div class="container wide-container section-inner">
+        <div class="section-body">
+            <div class="fresh-ideas-content">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        Remove Users from Many VMs
+                    </h2>
+                    {% if status == "success" %}
+                    <div class="alert alert-success">
+                        <strong>
+                            Yay!
+                        </strong>
+                        Accounts have been Removed!!
+                    </div>
+                    {% endif %}
+                    {% if status == "emptyBaseUserName" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need a base username!
+                    </div>
+                    {% endif %}
+                    {% if status == "badNumberOfAccounts" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to create at least 1 account!
+                    </div>
+                    {% endif %}
+                    {% if status == "badEndingVM" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to states a number for an ending VM!
+                    </div>
+                    {% endif %}
+                    {% if status == "BadstartingVMNumber" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to states a number for an starting VM!
+                    </div>
+                    {% endif %}
+                    {% if status == "badrole" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to select a role!
+                    </div>
+                    {% endif %}
+                    {% if status == "badRealm" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You forgot the realm!
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <p>
+            ​
+        </p>
+        <div class="row justify-content-md-center">
+            <div class="row justify-content-center">
+                <div clas="col">
+                    <form action="/massRemoveUser" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <label>
+                                            Base Username
+                                            <a data-html="true" data-content="This is the base name for the account. For example if you have an account called <b>Test1</b> the base username would be <b>Test</b>" data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's base Username?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="baseUsername" name="baseUsername" placeholder="userAccount" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('baseUsername').value = '{{info['baseUsername']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    <div class="col">
+                                        <label>
+                                            Number Of Accounts
+                                        </label>
+                                        <input class="form-control" id="numberofAccounts" name="numberOfAccounts" placeholder="0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('numberOfAccounts').value = '{{info['numberOfAccounts']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <label>
+                                            Starting VM Number
+                                            <a data-html="true" data-content="This is the number of the VM you would like to start at. For example if you had 10 vms and the first one was VM 100. The Starting VM would be 100" data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's Starting VM Number?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="startingVMNumber" name="startingVMNumber" placeholder="100" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('startingVMNumber').value = '{{info['startingVMNumber']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    <div class="col">
+                                        <label>
+                                            Ending VM Number
+                                            <a data-html="true" data-content="This is the number of the VM you would like to start at. For example if you had 10 vms and the first one was VM 100. The ending VM would be 110" data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's Ending VM Number?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="EndingVMNumber" name="EndingVMNumber" placeholder="110" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('EndingVMNumber').value = '{{info['EndingVMNumber']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>
+                                            Realm
+                                        </label>
+                                        <input class="form-control" id="realm" name="realm" placeholder="pve" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('realm').value = '{{info['realm']}}':
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    <div class="col">
+                                            <label>
+                                            Role
+                                        </label>
+                                            
+                                            <select class="form-control" id="roles"  name="role">
+                                                {% for i in range(length) %}
+                                                    <option>{{ roles[i] }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col justify-content-center">
+                                            <p>
+                                                <button class="btn btn-danger" id="submitBtn" type="submit">
+                                                    Remove
+                                                </button>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+ {% include 'footer.html' %}
+                            
+                        </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

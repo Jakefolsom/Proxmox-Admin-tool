@@ -1,0 +1,173 @@
+{% include 'navbar.html' %}
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/5a3d5d0d28.js">
+</script>
+<section class="section hero-section" data-eltype="frontpagesection" id="hero">
+    <div class="container wide-container section-inner">
+        <div class="section-body">
+            <div class="fresh-ideas-content">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        Mass User Creation
+                    </h2>
+                    {% if status == "success" %}
+                    <div class="alert alert-success">
+                        <strong>
+                            Yay!
+                        </strong>
+                        Accounts have been made!!
+                    </div>
+                    {% endif %}
+                    {% if status == "emptyBaseUserName" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need a base username!
+                    </div>
+                    {% endif %}
+                {% if  status == "shortPassword" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need a longer password!
+                    </div>
+                    {% endif %}
+                {% if  status == "badDateFormat" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        The date needs to be in this format YYYY-MM-DD!
+                    </div>
+                    {% endif %}
+                {% if  status == "badNumberOfAccounts" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to create at least 1 account!
+                    </div>
+                    {% endif %}
+                {% if status == "badRealm" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You forgot the realm!
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <p>
+            ​
+        </p>
+        <div class="row justify-content-md-center">
+            <div class="row justify-content-center">
+                <div clas="col">
+                    <form action="/massUserCreation" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <label>
+                                            Base Username
+                                            <a data-content="This is the base username for the users. For example if you want 10 accounts and you wanted the accounts to be called userAccount, the base username would be userAccount then the numbers 1 through 10 will be added to the end." data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's base Username?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="baseUsername" name="baseUsername" placeholder="userAccount" type="text">
+                                            {% if info %}
+                                            <script>
+                                                document.getElementById('baseUsername').value = '{{info['baseUsername']}}';
+                                            </script>
+                                            {% endif %}
+                                        </input>
+                                    </div>
+                                    <div class="col">
+                                        <label for="inputPassword4">
+                                            Default Password
+                                        </label>
+                                        <input class="form-control" id="passwordInput" name="defaultPassword" placeholder="Password" type="password">
+                                            {% if info %}
+                                            <script>
+                                                document.getElementById('passwordInput').value = '{{info['defaultPassword']}}';
+                                            </script>
+                                            {% endif %}
+                                        </input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>
+                                                    Experation Date
+                                                </label>
+                                                <input class="form-control" id="expires" name="expiresDate" placeholder="YYYY-MM-DD" type="text">
+                                                    {% if info %}
+                                                    <script>
+                                                       document.getElementById('expires').value = '{{info['expires']}}';                                                    </script>
+                                                    {% endif %}
+                                                </input>
+                                            </div>
+                                            <div class="col">
+                                                <label>
+                                                    Number Of Accounts
+                                                </label>
+                                                <input class="form-control" id="numberofAccounts" name="numberOfAccounts" placeholder="0" type="text">
+                                                    {% if info %}
+                                                    <script>
+                                                        document.getElementById('numberOfAccounts').value = '{{info['numberOfAccounts']}}';
+                                                    </script>
+                                                    {% endif %}
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>
+                                                    Realm
+                                                </label>
+                                                <input class="form-control" id="realm" name="realm" placeholder="pve" type="text">
+                                                    {% if info %}
+                                                    <script>
+                                                       document.getElementById('realm').value = '{{info['realm']}}';
+                                                    </script>
+                                                    {% endif %}
+                                                </input>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col justify-content-center">
+                                                <p>
+                                                    <button class="btn btn-primary" id="submitBtn" type="submit">
+                                                        Create
+                                                    </button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+ {% include 'footer.html' %}
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

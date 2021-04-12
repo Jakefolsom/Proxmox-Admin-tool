@@ -1,0 +1,56 @@
+{% include 'navbar.html' %}
+<!--TODO
+Add page for mass add/remove user to vms
+add_single_user_to_vms-->
+<section id="hero" class="section hero-section" data-eltype="frontpagesection">
+    <div class="container wide-container section-inner">
+        <div class="section-body">
+            <div class="fresh-ideas-content">
+                <div class="section-header">
+                    <h2 class="section-title text-center">User Tools</h2>
+                </div>
+            </div>
+        </div>
+        <p>&#8203;</p>
+        <div class="row justify-content-md-center text-center">
+            <div class="col">
+                <a href="/massUserCreation" class="border rounded-lg justify-content-md-center btn btn-light justify-content-center">
+                    <i class="fas fa-users fa-3x"></i>
+                    <p></p>
+                    <h4>Mass User Creation</h4>
+                </a>
+            </div>
+            <div class="col">
+                <a href="/massUserDeletion" class="border rounded-lg justify-content-md-center btn btn-light justify-content-center">
+                    <i class="fas fa-user-slash fa-3x"></i>
+                    <p></p>
+                    <h4>Mass User Deletion</h4>
+                </a>
+            </div>
+        </div>
+        <p>&#8203;</p>
+        <div class="row justify-content-md-center text-center">
+            <div class="col">
+                <a href="/massAddUser" class="border rounded-lg justify-content-md-center btn btn-light justify-content-center">
+                    <span class="fa-stack fa-2x">
+                        <i class="fas fa-desktop fa-stack-2x"></i>
+                        <i class="fas fa-user-plus fa-stack-1x"></i>
+                    </span>
+                    <p></p>
+                    <h4>Mass add user to &#8203;<br>VMS</h4>
+                </a>
+            </div>
+            <div class="col">
+                <a href="/massRemoveUser" class="border rounded-lg justify-content-md-center btn btn-light justify-content-center">
+                    <span class="fa-stack fa-2x">
+                        <i class="fas fa-desktop fa-stack-2x"></i>
+                        <i class="fas fa-user-minus fa-stack-1x"></i>
+                    </span>
+                    <p></p>
+                    <h4>Mass remove user &#8203;<br>from VMS</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+ {% include 'footer.html' %}

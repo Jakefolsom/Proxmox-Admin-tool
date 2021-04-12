@@ -1,0 +1,13 @@
+<script>
+function setDate() {
+  var d = new Date();
+  var n = d.getFullYear();
+  document.getElementById("footer").innerHTML = '<p class="mt-5 mb-3 text-muted text-center">© JFC Coding '+ n +'</p>';
+}
+
+</script>
+<body onload="setDate()">
+
+<div id="footer"></div>
+
+</body>

@@ -1,0 +1,177 @@
+{% include 'navbar.html' %}
+<!--
+interfaceName
+vmbrStartingNumber
+    Get Node from starting number
+
+ -->
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/5a3d5d0d28.js">
+</script>
+<section class="section hero-section" data-eltype="frontpagesection" id="hero">
+    <div class="container wide-container section-inner">
+        <div class="section-body">
+            <div class="fresh-ideas-content">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        Mass Append Network Device
+                    </h2>
+                    {% if status == "success" %}
+                    <div class="alert alert-success">
+                        <strong>
+                            Yay!
+                        </strong>
+                        Devices have been appened to VM's!!
+                    </div>
+                    {% endif %}
+                    {% if status == "badvmbrStartingNumber" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need a starting vmbr number!
+                    </div>
+                    {% endif %}
+                    {% if status == "badinterfaceName" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need a interface name!
+                    </div>
+                    {% endif %}
+                    {% if status == "vmid" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        You need to tell me what VM to start at!
+                    </div>
+                    {% endif %}
+                    {% if status == "unknownVMID" %}
+                    <div class="alert alert-danger">
+                        <strong>
+                            Opps!
+                        </strong>
+                        Thats a bad vmid!
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <p>
+            ​
+        </p>
+        <div class="row justify-content-md-center">
+            <div class="row justify-content-center">
+                <div clas="col">
+                    <form action="/appendNetworkDevice" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <label>
+                                            Interface Name
+                                            <a data-content="This is the interface name. If you want to change the base one set this to net0 if you want to add another network device set it to netN. N being the number you want." data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's interface name?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input class="form-control" id="interfaceName" name="interfaceName" placeholder="net0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('interfaceName').value = '{{info['interfaceName']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    <div class="col">
+                                        <label for="inputPassword4">
+                                            Starting vmid?
+                                        </label>
+                                        <input class="form-control" id="vmid" name="vmid" placeholder="100" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('vmid').value = '{{info['vmid']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="inputPassword4">
+                                            starting vmbr
+                                        </label>
+                                        <input class="form-control" id="vmbrStartingNumber" name="vmbrStartingNumber" placeholder="0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('vmbrStartingNumber').value = '{{info['vmbrStartingNumber']}}';
+                                            </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    <div class="col">
+                                        <label>
+                                            How many VM's is this for?
+                                        </label>
+                                        <input class="form-control" id="timesToRun" name="timesToRun" placeholder="0" type="text">
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('timesToRun').value = '{{info['timesToRun']}}';                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label>
+                                            Increment vmbr for each device?
+                                            <a data-content="If this is enabled it will add one to the last vmbrN. Meaning if you are trying to append vmbr1, vmbr2,vmbr3 in order select this option." data-placement="right" data-toggle="popover" data-trigger="focus" role="button" tabindex="0" title="What's interface name?">
+                                                <i class="fas fa-question-circle">
+                                                </i>
+                                            </a>
+                                        </label>
+                                        <input type="checkbox" class="form-check-label" name='increment'>
+                                        {% if info %}
+                                        <script>
+                                            document.getElementById('increment').value = '{{info['Increment']}}';
+                                                    </script>
+                                        {% endif %}
+                                        </input>
+                                    </div>
+                            
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col justify-content-center">
+                                        <p>
+                                            <button class="btn btn-primary" id="submitBtn" type="submit">
+                                                Append Device
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% include 'footer.html' %}
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+</section>
